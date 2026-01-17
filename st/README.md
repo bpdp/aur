@@ -21,3 +21,5 @@ $ diff config.def.h config.h
 > unsigned int defaultfg = 259;
 > unsigned int defaultbg = 258;
 ```
+
+Taken from [Original AUR package](https://aur.archlinux.org/packages/st)
