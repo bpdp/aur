@@ -13,15 +13,18 @@ license=('MIT')
 depends=(libxft)
 url=https://st.suckless.org
 source=(https://dl.suckless.org/$pkgname/$pkgname-$pkgver.tar.gz
-        terminfo.patch
-        README.terminfo.rst)
+  terminfo.patch
+  erresc8.patch
+  README.terminfo.rst)
 sha256sums=('9ed9feabcded713d4ded38c8cebf36a3b08f0042ef7934a0e2b2409da56e649b'
-            'f9deea445a5c6203a0e8e699f3c3b55e27275f17fb408562c4dd5d649edeea23'
-            '95be3197f7de77a0fe2e4f527202e17e910ee24e1ed6bc39beb320a1304bb7e1')
+  'f9deea445a5c6203a0e8e699f3c3b55e27275f17fb408562c4dd5d649edeea23'
+  'a764805777bcac376eb2064e60f0c3b6dd3ec0b47a55690b2c85c87e0d2175e6'
+  '95be3197f7de77a0fe2e4f527202e17e910ee24e1ed6bc39beb320a1304bb7e1')
 _sourcedir=$pkgname-$pkgver
 
 prepare() {
-  patch -d "$_sourcedir" -p 0 < terminfo.patch
+  patch -d "$_sourcedir" -p 0 <terminfo.patch
+  patch -d "$_sourcedir" -p 0 <erresc8.patch
 
   # This package provides a mechanism to provide a custom config.h. Multiple
   # configuration states are determined by the presence of two files in
@@ -41,11 +44,9 @@ prepare() {
   #
   # After this test, config.def.h is copied from $_sourcedir to $BUILDDIR to
   # provide an up to date template for the user.
-  if [ -e "$BUILDDIR/config.h" ]
-  then
+  if [ -e "$BUILDDIR/config.h" ]; then
     cp "$BUILDDIR/config.h" "$_sourcedir"
-  elif [ ! -e "$BUILDDIR/config.def.h" ]
-  then
+  elif [ ! -e "$BUILDDIR/config.def.h" ]; then
     echo \
       'This package can be configured in config.h. Copy the config.def.h that' \
       'was just placed into the package directory to config.h and modify it' \

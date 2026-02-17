@@ -23,3 +23,7 @@ $ diff config.def.h config.h
 ```
 
 Taken from [Original AUR package](https://aur.archlinux.org/packages/st)
+
+## Added Patch
+
+1. [erresc8.patch](erresc8.patch): Fixed error for **erresc: unknown str ESC]8**. 
